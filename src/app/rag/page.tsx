@@ -48,10 +48,13 @@ export default function RAGPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 flex items-center justify-center p-3 sm:p-4">
+      {" "}
       <div className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden border border-purple-100">
+        {" "}
         {/* Header */}
-        <div className="bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 p-8 text-white">
+        <div className="bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 p-5 sm:p-8 text-white">
+          {" "}
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm shadow-lg">
               <svg
@@ -68,30 +71,36 @@ export default function RAGPage() {
                 />
               </svg>
             </div>
-            <div>
-              <h1 className="text-3xl font-bold">Personal AI Agent</h1>
-              <p className="text-purple-100 text-sm mt-1">
-                Ask Question from your Personal Memory.
-              </p>
+            <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <h1 className="text-2xl sm:text-3xl font-bold">
+                Personal AI Agent
+              </h1>
+
+              <button
+                onClick={() => router.push("/")}
+                className="self-start sm:self-auto px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white"
+              >
+                ← Back to Chat
+              </button>
             </div>
           </div>
         </div>
-
         {/* Main Content */}
-        <div className="p-8 space-y-6">
+        <div className="p-4 sm:p-8 space-y-5 sm:space-y-6">
+          {" "}
           {/* Input Area */}
           <div className="space-y-4">
             <textarea
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               placeholder="Ask a question about your documents..."
-              className="w-full min-h-[100px] border rounded-xl p-4 outline-none focus:ring-2 focus:ring-purple-400 resize-none"
+              className="w-full min-h-[100px] border rounded-xl p-3 sm:p-4 text-sm sm:text-base outline-none focus:ring-2 focus:ring-purple-400 resize-none"
             />
 
             <button
               onClick={askQuestion}
               disabled={!question || isLoading}
-              className="w-full px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-200 flex items-center justify-center gap-2"
+              className="w-full px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 text-white font-semibold ..."
             >
               {isLoading ? "Thinking..." : "Ask"}
             </button>
@@ -109,7 +118,7 @@ export default function RAGPage() {
             )}
             <button
               onClick={() => router.push("/admin/ingest")}
-              className="w-full px-6 py-3 rounded-xl border border-purple-300 bg-white text-purple-700 font-semibold hover:bg-purple-50 hover:shadow-sm transition-all duration-200 flex items-center justify-center gap-2"
+              className="w-full px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl border border-purple-300 bg-white text-purple-700 font-semibold ..."
             >
               <svg
                 className="w-5 h-5"
@@ -127,7 +136,6 @@ export default function RAGPage() {
               Upload your private knowledge
             </button>
           </div>
-
           {/* Answer */}
           {answer && (
             <div className="animate-fadeIn">
@@ -137,16 +145,15 @@ export default function RAGPage() {
               </div>
             </div>
           )}
-
           {/* Error */}
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded-lg">
               {error}
             </div>
           )}
-
           {/* Info Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 pt-3 sm:pt-4">
+            {" "}
             <div className="bg-gradient-to-br from-purple-100 to-purple-50 rounded-xl p-4 border border-purple-200">
               <h4 className="font-semibold text-purple-900 text-sm">
                 Vector Search
@@ -155,7 +162,6 @@ export default function RAGPage() {
                 Answers come from your own data
               </p>
             </div>
-
             <div className="bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl p-4 border border-blue-200">
               <h4 className="font-semibold text-blue-900 text-sm">
                 RAG Pipeline
@@ -164,7 +170,6 @@ export default function RAGPage() {
                 Retrieval + Generation combined
               </p>
             </div>
-
             <div className="bg-gradient-to-br from-pink-100 to-pink-50 rounded-xl p-4 border border-pink-200">
               <h4 className="font-semibold text-pink-900 text-sm">
                 Private Data
@@ -174,7 +179,6 @@ export default function RAGPage() {
           </div>
         </div>
       </div>
-
       <style jsx global>{`
         @keyframes fadeIn {
           from {

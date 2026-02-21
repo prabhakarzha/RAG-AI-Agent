@@ -1,8 +1,11 @@
 "use client";
 import { Fragment, useState } from "react";
 import { useChat } from "@ai-sdk/react";
+import { useRouter } from "next/navigation";
 
 export default function RAGChatBot() {
+  const router = useRouter();
+
   const [input, setInput] = useState("");
   const { messages, sendMessage, status } = useChat();
 
@@ -14,10 +17,13 @@ export default function RAGChatBot() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-4xl h-[90vh] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-purple-100">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 flex items-center justify-center p-3 sm:p-4">
+      {" "}
+      <div className="w-full max-w-4xl h-[92vh] sm:h-[90vh] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-purple-100">
+        {" "}
         {/* Header */}
-        <div className="bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 p-6 text-white">
+        <div className="bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 p-4 sm:p-6 text-white">
+          {" "}
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
               <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 20 20">
@@ -25,15 +31,21 @@ export default function RAGChatBot() {
                 <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
               </svg>
             </div>
-            <div>
-              <h1 className="text-2xl font-bold">RAG ChatBot</h1>
-              <p className="text-purple-100 text-sm">Powered by AI</p>
+            <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <h1 className="text-2xl sm:text-3xl font-bold">AI Chatbot</h1>
+
+              <button
+                onClick={() => router.push("/")}
+                className="self-start sm:self-auto px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white"
+              >
+                ← Back to Chat
+              </button>
             </div>
           </div>
         </div>
-
         {/* Chat messages */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-gray-50/50 to-white">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 bg-gradient-to-b from-gray-50/50 to-white">
+          {" "}
           {messages.length === 0 && (
             <div className="h-full flex items-center justify-center">
               <div className="text-center">
@@ -59,7 +71,6 @@ export default function RAGChatBot() {
               </div>
             </div>
           )}
-
           {messages.map((message) => (
             <Fragment key={message.id}>
               {message.parts.map((part, i) => {
@@ -71,7 +82,7 @@ export default function RAGChatBot() {
                     className={`flex ${isUser ? "justify-end" : "justify-start"} animate-fadeIn`}
                   >
                     <div
-                      className={`flex gap-3 max-w-[80%] ${isUser ? "flex-row-reverse" : "flex-row"}`}
+                      className={`flex gap-3 max-w-[90%] sm:max-w-[80%] ${isUser ? "flex-row-reverse" : "flex-row"}`}
                     >
                       {/* Avatar */}
                       <div
@@ -122,7 +133,6 @@ export default function RAGChatBot() {
               })}
             </Fragment>
           ))}
-
           {(status === "submitted" || status === "streaming") && (
             <div className="flex justify-start animate-fadeIn">
               <div className="flex gap-3 max-w-[80%]">
@@ -155,15 +165,15 @@ export default function RAGChatBot() {
             </div>
           )}
         </div>
-
         {/* Input box */}
-        <div className="p-6 bg-white border-t border-gray-200">
+        <div className="p-4 sm:p-6 bg-white border-t border-gray-200">
+          {" "}
           <form onSubmit={handleSubmit} className="flex gap-3">
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type your message..."
-              className="flex-1 resize-none border-2 border-gray-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
+              className="flex-1 resize-none border-2 border-gray-200 rounded-xl p-3 sm:p-4 text-sm sm:text-base outline-none ..."
               rows={2}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
@@ -195,7 +205,6 @@ export default function RAGChatBot() {
           </form>
         </div>
       </div>
-
       <style jsx global>{`
         @keyframes fadeIn {
           from {
